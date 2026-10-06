@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "boxicons/css/boxicons.min.css";
+
+/* Design tokens pulled from the Figma file */
+@theme {
+  --color-bg: #0b0b0c;
+  --color-surface: #1a1a1c;
+  --color-surface-2: #232326;
+  --color-line: #2e2e31;
+  --color-ink: #f2f1ee;
+  --color-muted: #98979c;
+  --color-dim: #5c5c60;
+  --color-brand: #ff6a1a;
+  --color-brand-ink: #160d08;
+  --color-danger: #ff5a52;
+  --font-sans: "IBM Plex Sans", -apple-system, "SF Pro", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "IBM Plex Sans", sans-serif;
+}
+
+html, body, #root { min-height: 100%; }
+body { background: var(--color-bg); color: var(--color-ink); font-family: var(--font-sans); }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
