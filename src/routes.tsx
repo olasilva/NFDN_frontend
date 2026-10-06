@@ -5,6 +5,7 @@ import Stub from './components/Stub'
 import Home from './pages/Home'
 import ServicePage from './pages/ServicePage'
 import ServicesPage from './pages/ServicesPage'
+import AccountPage from './pages/AccountPage'
 import AdminPage from './pages/admin/AdminPage'
 import { serviceTabs } from './data/services'
 
@@ -27,7 +28,9 @@ export const router = createBrowserRouter([
     element: <MobileLayout />,
     children: [
       { index: true, element: <Home /> },
-      ...mobile.map(([path, title, node]) => ({ path, element: path === 'services' ? <ServicesPage /> : <Stub title={title} node={node} /> })),
+      ...mobile.map(([path, title, node]) => ({ path, element: path === 'services' ? <ServicesPage /> : path === 'account' ? <AccountPage mode="choice" /> : <Stub title={title} node={node} /> })),
+      { path: 'login', element: <AccountPage mode="login" /> },
+      { path: 'create-account', element: <AccountPage mode="signup" /> },
       ...serviceTabs.map((tab) => ({
         path: tab === 'overview' ? 'services/:slug' : `services/:slug/${tab}`,
         element: <ServicePage tab={tab} />,

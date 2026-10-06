@@ -1,11 +1,10 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import type { Contract } from '../data/contracts'
 import Pill from './Pill'
 
 export default function ContractCard({ c }: { c: Contract }) {
   const [showDetails, setShowDetails] = useState(false)
-  const [showApplication, setShowApplication] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
 
   return (
     <article className="overflow-hidden rounded-2xl border border-line bg-surface">
@@ -24,18 +23,9 @@ export default function ContractCard({ c }: { c: Contract }) {
         </dl>
         <div className="mt-3 grid grid-cols-2 gap-3">
           <button type="button" aria-expanded={showDetails} onClick={() => setShowDetails((shown) => !shown)} className="h-10 rounded-[8px] border border-line bg-surface-2 text-xs text-muted hover:text-ink">{showDetails ? 'Hide details' : 'View details'}</button>
-          <button type="button" onClick={() => { setShowApplication((shown) => !shown); setSubmitted(false) }} className="h-10 rounded-[8px] bg-brand text-[12.5px] font-semibold text-brand-ink">{showApplication ? 'Cancel' : 'Apply now'}</button>
+          <Link to="/account?next=apply" className="flex h-10 items-center justify-center rounded-[8px] bg-brand text-[12.5px] font-semibold text-brand-ink">Apply now</Link>
         </div>
         {showDetails && <p className="mt-3 border-t border-line pt-3 text-xs leading-5 text-muted">This {c.category.toLowerCase()} project is in {c.location}. Budget: {c.budget}. Submit an application before {c.deadline}.</p>}
-        {showApplication && <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }} className="mt-3 border-t border-line pt-3">
-          {submitted ? <p role="status" className="text-sm font-medium text-brand">Application noted. The project owner can follow up using your contact details.</p> : <>
-            <label className="block text-xs text-muted" htmlFor={`contact-${c.id}`}>Your phone or email</label>
-            <div className="mt-2 flex gap-2">
-              <input id={`contact-${c.id}`} name="contact" type="text" required placeholder="name@example.com" className="min-w-0 flex-1 rounded-[8px] border border-line bg-bg px-3 text-sm text-ink outline-none focus:border-brand" />
-              <button type="submit" className="rounded-[8px] bg-brand px-3 text-xs font-semibold text-brand-ink">Send</button>
-            </div>
-          </>}
-        </form>}
       </div>
     </article>
   )
